@@ -8,14 +8,15 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 75%;
-        width: 75%;
+        float: right;
+        height: 100%;
+        width: 50%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
         height: 100%;
-        margin: 10;
-        padding: 10;
+        margin: 0;
+        padding: 0;
       }
     </style>
   </head>
@@ -29,7 +30,7 @@
     function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -34.397, lng: 150.644},
-        zoom: 13
+        zoom: 12
       });
 
       var contentString = '<div id="content">'+
@@ -63,16 +64,11 @@
             lng: position.coords.longitude
           };
 
-          // infoWindow.setPosition(user_pos);
-          // infoWindow.setContent('Location found.');
-          var marker=new google.maps.Marker({position:user_pos,map:map,title:"You are here!"});
-          marker.addListener("click", function() {
-            infoWindow.open(map, marker);
+          var user_marker=new google.maps.Marker({position:user_pos,map:map,title:"You are here!"});
+          user_marker.addListener("click", function() {
+            infoWindow.open(map, user_marker);
           });
-          // marker.onclick = function(){
-          //   infoWindow.setContent('You are here!');
-          //   infoWindow.open(map);
-          // };
+
           map.setCenter(user_pos);
         }, function() {
           handleLocationError(true, infoWindow, map.getCenter());
