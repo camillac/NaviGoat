@@ -41,7 +41,7 @@ def submit():
     #     names.append(b['name'])
 
     # return str(names)
-    return render_template('home.html', search = search_term)
+    return render_template('search.html', search = search_term)
 
 
 
