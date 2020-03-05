@@ -17,32 +17,34 @@ headers = {'Authorization': 'Bearer %s' % api_key}
 def main():
     return render_template('welcome.html')
 
-
-@app.route('/submit')
-def submit():
+@app.route('/search')
+def search():
     search_term = request.args['search']
-    #
-    # url = 'https://api.yelp.com/v3/businesses/search'
-    #
-    # params = {'term': search_term,
-    #          'location': 'New York City'}
-    #
-    # req = requests.get(url, params=params, headers=headers)
-    #
-    # #turned request object to text
-    # text = req.text
-    #
-    # # turns req txt into a dictionary for easy access
-    # req_dict = json.loads(text)
-    #
-    # names = [];
-    # businesses = req_dict['businesses']
-    # for b in businesses:
-    #     names.append(b['name'])
 
-    # return str(names)
-    return render_template('search.html', search = search_term)
+    url = 'https://api.yelp.com/v3/businesses/search'
 
+    params = {'term': search_term,
+             'location': 'New York City'}
+
+    req = requests.get(url, params=params, headers=headers)
+
+    #turned request object to text
+    text = req.text
+
+    # turns req txt into a dictionary for easy access
+    req_dict = json.loads(text)
+
+    names = []
+    businesses = req_dict['businesses']
+    for b in businesses:
+        names.append(b['name'])
+
+    # return str(text)
+    return render_template('search.html', search = search_term, req = req_dict)
+
+# @app.route('/location')
+# def location():
+#
 
 
 if __name__ == '__main__':

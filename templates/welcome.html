@@ -1,11 +1,23 @@
 <html>
+  <style>
+    #textboxid
+    {
+      width:200px;
+      font-size:14pt;
+    }
+    #button
+    {
+      font-size:14pt;
+    }
+  </style>
+
   <body>
     <title>NaviGoat</title>
-    <h1>Welcome!</h1>
+    <h1>NaviGoat</h1>
 
-    <form action="/submit" method="get">
-      <input type="text" name="search" placeholder="Enter your search">
-      <button type="submit">Search</button>
+    <form action="/search" method="get">
+      <input id="textboxid" type="text" name="search" placeholder="Search for locations!">
+      <button id="button" type="submit">Search</button>
     </form>
 
   </body>
