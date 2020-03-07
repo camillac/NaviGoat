@@ -20,11 +20,19 @@ def main():
 @app.route('/search')
 def search():
     search_term = request.args['search']
+    if (request.args['latitude'] != '' or request.args['longitude'] != ''):
+        lat = request.args['latitude']
+        long = request.args['longitude']
+        params = {'term': search_term,
+                 'latitude': lat,
+                 'longitude': long}
+    else:
+        # If HTML Geolocation fails, default to New York City
+        params = {'term': search_term,
+                 'location': 'New York City'}
+
 
     url = 'https://api.yelp.com/v3/businesses/search'
-
-    params = {'term': search_term,
-             'location': 'New York City'}
 
     req = requests.get(url, params=params, headers=headers)
 

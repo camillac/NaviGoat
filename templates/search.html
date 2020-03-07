@@ -30,7 +30,7 @@
         height: 40%;
         width: 40%;
       }
-      #body {
+      .body {
         margin-left: 20px;
         float: left;
         width: 50%;
@@ -59,14 +59,12 @@
     <nav class="navbar navbar-expand-md navbar-dark navbar-custom navbar-fixed">
 
       <div class="mr-auto order-0">
-        <form action="/" method="get">
-          <a class="navbar-brand mr-auto header" href="#">NaviGoat</a>
-        </form>
-          <form action="/" method="get">
+        <a class="navbar-brand mr-auto header" href="/">NaviGoat</a>
+          <!-- <form action="/" method="get">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
                 <span class="navbar-toggler-icon"></span>
             </button>
-          </form>
+          </form> -->
       </div>
       <form action="/search" method="get">
         <input id="textboxid" type="text" name="search" placeholder="Search for locations!">
@@ -89,32 +87,26 @@
         </div>
       </div>
     </nav> -->
-    <div id = "body">
+    <div class = "body">
 
-      <!-- {{req['businesses']}} -->
       <div class="row">
-        <div class="col-8">
+        <div class="col-10">
           <div class="list-group" id="list-tab" role="tablist">
             {% for b in req['businesses'] %}
-              <strong><a class="list-group-item list-group-item-action" data-toggle="list" role="tab">{{loop.index}}. {{b['name']}}</a></strong>
+              <a class="list-group-item list-group-item-action" id="{{b['id']}}-list" data-toggle="list" href="#{{b['id']}}" role="tab"><strong>{{loop.index}}. {{b['name']}}</strong></a>
             {% endfor %}
           </div>
         </div>
 
-      </div>
+        <div class="col-8">
+          <div class="tab-content" id="nav-tabContent">
+            {% for b in req['businesses'] %}
+              <!-- <li>{{b['name']}}</li> -->
+              <div class="tab-pane fade show active" id="{{b['id']}}" role="tabpanel" aria-labelledby="{{b['id']}}-list">avafafjabkfasbkffbejbfajkfbafkafabskfasbkfab</div>
+            {% endfor %}
+          </div>
+        </div>
 
-    </div>
-
-    <div class="col-8">
-      <div class="tab-content" id="nav-tabContent">
-        {% for b in req['businesses'] %}
-          <!-- <li>{{b['name']}}</li> -->
-          <div class="tab-pane fade" id="list-profile" role="tabpanel">HELLO</div>
-        {% endfor %}
-        <!-- <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">...</div>
-        <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
-        <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
-        <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div> -->
       </div>
     </div>
 

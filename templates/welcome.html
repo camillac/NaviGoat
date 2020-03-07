@@ -9,14 +9,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     <style>
-      #textboxid
-      {
+      #textboxid {
         width:300px;
         font-size:14pt;
       }
-      #button
-      {
+      #button {
         font-size:14pt;
+      }
+      .hidden {
+        display: none;
       }
       .navbar-custom {
         color: #FFFFFF;
@@ -31,9 +32,7 @@
     <nav class="navbar navbar-expand-md navbar-dark navbar-custom navbar-fixed">
 
       <div class="mr-auto order-0">
-        <form action="/" method="get">
-          <a class="navbar-brand mr-auto" href="#">NaviGoat</a>
-        </form>
+        <a class="navbar-brand mr-auto" href="/">NaviGoat</a>
           <form action="/" method="get">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
                 <span class="navbar-toggler-icon"></span>
@@ -51,7 +50,36 @@
     <form action="/search" method="get"><center>
       <input id="textboxid" type="text" name="search" placeholder="Where do you want to go?">
       <button id="button" type="submit">Search</button>
+      <input class='hidden' id="latitude" name="latitude">
+      <input class='hidden' id="longitude" name="longitude">
     </center></form>
+
+    <script>
+      var x = document.getElementById("demo");
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position){
+            document.getElementById("latitude").value = position.coords.latitude;
+            document.getElementById("longitude").value = position.coords.longitude;
+          });
+        }
+        else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, user_pos) {
+        infoWindow.setPosition(user_pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+
+      getLocation();
+
+    </script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
