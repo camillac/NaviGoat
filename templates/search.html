@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<!DOCTYPE html
+<html lang="en">
+
 <html>
   <head>
     <title>Searching for {{search}} - NaviGoat</title>
@@ -6,9 +8,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     <style>
       #textboxid
@@ -23,8 +25,6 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        position:sticky;
-        /* float: top; */
         float: right;
         height: 100%;
         width: 40%;
@@ -32,7 +32,7 @@
 
       #body {
         float: left;
-        width: 500px;
+        width: 60%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -43,25 +43,60 @@
     </style>
   </head>
   <body>
-    <div id = "body">
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-fixed">
+    
+      <div class="mr-auto order-0">
+        <form action="/" method="get">
+          <a class="navbar-brand mr-auto" href="#">NaviGoat</a>
+        </form>
+          <form action="/" method="get">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+          </form>
+      </div>
       <form action="/search" method="get">
         <input id="textboxid" type="text" name="search" placeholder="Search for locations!">
         <button id="button" type="submit">Search</button>
       </form>
+    </nav>
 
+    <!-- <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            <form class="navbar-form navbar-left" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <p class="navbar-text">Signed in as Mark Otto</p>
+          </a>
+        </div>
+      </div>
+    </nav> -->
+    <div id = "body">
+
+      <!-- {{req['businesses']}} -->
       <ul>
         {% for b in req['businesses'] %}
           <li>{{b['name']}}</li>
+          <!-- <li>{{b.coordinates.latitude}}</li> -->
         {% endfor %}
       </ul>
 
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <div id="map"></div>
     <!-- <script src="/static/map.js?"></script> -->
     <script>
     // Requires Geolocation to be enabled by the user
-    var map, infoWindow;
+    var map, user_infoWindow;
     function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -34.397, lng: 150.644},
@@ -89,7 +124,7 @@
       '</div>'+
       '</div>';
 
-      infoWindow = new google.maps.InfoWindow({content:"You are here!"});
+      user_infoWindow = new google.maps.InfoWindow({content:"You are here!"});
 
       // Try HTML5 geolocation.
       if (navigator.geolocation) {
@@ -102,8 +137,29 @@
           // Plotting the USER marker
           var user_marker=new google.maps.Marker({position:user_pos,map:map,title:"You are here!"});
           user_marker.addListener("click", function() {
-            infoWindow.open(map, user_marker);
+            user_infoWindow.open(map, user_marker);
           });
+
+          // Plotting Recommended markers
+          // console.log({{req|tojson}}['businesses']);
+          var b_pos;
+          var b_infoWindow;
+          var new_marker;
+          var b;
+          for (b in {{req|tojson}}['businesses']){
+            // console.log({{req|tojson}}['businesses'][b]);
+            b_infoWindow = new google.maps.InfoWindow({content:{{req|tojson}}['businesses'][b]['name']});
+
+            b_pos = {
+              lat: {{req|tojson}}['businesses'][b].coordinates.latitude,
+              lng: {{req|tojson}}['businesses'][b].coordinates.longitude
+            };
+            new_marker=new google.maps.Marker({position:b_pos,label:b,map:map,title:{{req|tojson}}['businesses'][b]['name']});
+            // new_marker.addListener("click", function() {
+            //   b_infoWindow.open(map, new_marker);
+            // });
+
+          }
 
 
           map.setCenter(user_pos);
