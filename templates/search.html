@@ -4,6 +4,7 @@
 <html>
   <head>
     <title>Searching for {{search}} - NaviGoat</title>
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,6 +13,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
+
+    <!-- CSS -->
     <style>
       #textboxid {
         width:200px;
@@ -27,10 +30,15 @@
         height: 40%;
         width: 40%;
       }
-
       #body {
+        margin-left: 20px;
         float: left;
-        width: 60%;
+        width: 50%;
+        font-size: 14pt;
+      }
+      .list-group-item{
+        padding:20px;
+        width: 100%;
       }
       .navbar-custom {
         color: #FFFFFF;
@@ -44,6 +52,8 @@
       }
     </style>
   </head>
+
+
   <body>
 
     <nav class="navbar navbar-expand-md navbar-dark navbar-custom navbar-fixed">
@@ -83,28 +93,29 @@
 
       <!-- {{req['businesses']}} -->
       <div class="row">
-        <div class="col-4">
+        <div class="col-8">
           <div class="list-group" id="list-tab" role="tablist">
             {% for b in req['businesses'] %}
-              <!-- <li>{{b['name']}}</li> -->
-              <a class="list-group-item list-group-item-action" data-toggle="list" role="tab">{{b['name']}}</a>
+              <strong><a class="list-group-item list-group-item-action" data-toggle="list" role="tab">{{loop.index}}. {{b['name']}}</a></strong>
             {% endfor %}
           </div>
         </div>
-        <div class="col-8">
-          <div class="tab-content" id="nav-tabContent">
-            {% for b in req['businesses'] %}
-              <!-- <li>{{b['name']}}</li> -->
-              <div class="tab-pane fade" id="list-profile" role="tabpanel">HELLO</div>
-            {% endfor %}
-            <!-- <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">...</div>
-            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
-            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
-            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div> -->
-          </div>
-        </div>
+
       </div>
 
+    </div>
+
+    <div class="col-8">
+      <div class="tab-content" id="nav-tabContent">
+        {% for b in req['businesses'] %}
+          <!-- <li>{{b['name']}}</li> -->
+          <div class="tab-pane fade" id="list-profile" role="tabpanel">HELLO</div>
+        {% endfor %}
+        <!-- <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">...</div>
+        <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>
+        <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
+        <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div> -->
+      </div>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -120,27 +131,6 @@
         center: {lat: -34.397, lng: 150.644},
         zoom: 12
       });
-
-      // var contentString = '<div id="content">'+
-      // '<div id="siteNotice">'+
-      // '</div>'+
-      // '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-      // '<div id="bodyContent">'+
-      // '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-      // 'sandstone rock formation in the southern part of the '+
-      // 'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-      // 'south west of the nearest large town, Alice Springs; 450&#160;km '+
-      // '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-      // 'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-      // 'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-      // 'Aboriginal people of the area. It has many springs, waterholes, '+
-      // 'rock caves and ancient paintings. Uluru is listed as a World '+
-      // 'Heritage Site.</p>'+
-      // '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-      // 'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-      // '(last visited June 22, 2009).</p>'+
-      // '</div>'+
-      // '</div>';
 
       user_infoWindow = new google.maps.InfoWindow({content:"You are here!"});
 
@@ -160,22 +150,25 @@
 
           // Plotting Recommended markers
           // console.log({{req|tojson}}['businesses']);
-          var b_pos;
-          var b_infoWindow;
+          var b_pos, b_name, b_inforWindow;
           var new_marker;
-          var b;
-          for (b in {{req|tojson}}['businesses']){
+          var num_str, num_int = 1;
+          var i;
+          for (i in {{req|tojson}}['businesses']){
             // console.log({{req|tojson}}['businesses'][b]);
-            b_infoWindow = new google.maps.InfoWindow({content:{{req|tojson}}['businesses'][b]['name']});
+            business = {{req|tojson}}['businesses'][i];
+            b_infoWindow = new google.maps.InfoWindow({content:business['name']});
 
             b_pos = {
-              lat: {{req|tojson}}['businesses'][b].coordinates.latitude,
-              lng: {{req|tojson}}['businesses'][b].coordinates.longitude
+              lat: business.coordinates.latitude,
+              lng: business.coordinates.longitude
             };
-            new_marker=new google.maps.Marker({position:b_pos,label:b,map:map,title:{{req|tojson}}['businesses'][b]['name']});
+            num_str = num_int.toString();
+            new_marker=new google.maps.Marker({position:b_pos,label:num_str,map:map,title:business['name']});
             // new_marker.addListener("click", function() {
             //   b_infoWindow.open(map, new_marker);
             // });
+            num_int++;
 
           }
 
