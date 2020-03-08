@@ -70,12 +70,21 @@
                 NaviGoat<img src="../static/goat-marker.png" style="margin-left:10px;">
               </center>
             </h1>
-            <form action="/search" method="get"><center>
-              <input class="textboxid" type="text" name="search" placeholder="Where do you want to go?">
-              <input class="textboxid" type="text" name="location" placeholder="Near what location?">
+            <form class="form-inline text-center" action="/search" method="get"><center>
+              <!-- <input class="textboxid" type="text" name="search" placeholder="Where do you want to go?">
+              <input class="textboxid" type="text" name="location" placeholder="Near what location?"> -->
+              <input type="text" class="form-control" style="width:300px;" name="search" placeholder="Where do you want to go?">
+              <input type="text" class="form-control" style="width:300px;" name="location" placeholder="Near what location?">
+              <select class="form-control" id="sort_by" name="sort_by">
+                <option value="best_match" selected hidden>Search by...</option>
+                <option value="best_match">Best Match</option>
+                <option value="rating">Rating</option>
+                <option value="review_count">Review Count</option>
+                <option value="distance">Distance</option>
+              </select>
               <input class='hidden' id="geo_lat" name="geo_lat">
               <input class='hidden' id="geo_lng" name="geo_lng">
-              <button id="button" type="submit">Search</button>
+              <button id="button" class="btn btn-default" type="submit">Search</button>
             </center></form>
           </h2>
         </div>

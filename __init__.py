@@ -21,6 +21,7 @@ def main():
 def search():
     search_term = request.args['search']
     location = request.args['location']
+    sort_by = request.args['sort_by']
 
     params = {}
 
@@ -36,13 +37,16 @@ def search():
                      'latitude': geo_lat,
                      'longitude': geo_lng,
                      'radius': 10000,
+                     'sort_by': sort_by,
                      'rating': 5}
+
             location = "you"
         else:
             # if not, search near 'New York City'
             params = {'term': search_term,
                      'location': location,
                      'radius': 10000,
+                     'sort_by': sort_by,
                      'rating': 5}
 
     # Use given location
@@ -50,6 +54,7 @@ def search():
         params = {'term': search_term,
                  'location': location,
                  'radius': 10000,
+                 'sort_by': sort_by,
                  'rating': 5}
 
 
