@@ -1,4 +1,4 @@
-<!DOCTYPE html
+<!DOCTYPE html>
 <html lang="en">
 
 <html>
@@ -12,9 +12,6 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
     <link rel="icon"
       type="image/png"
@@ -35,18 +32,34 @@
       }
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
+      #map_pos{
+        transform: none;
+        z-index: 100;;
+        position: -webkit-fixed;
+        position: fixed;
+        left: 60px;
+        top: 95px;
+        right: 35px;
+        overflow: auto;
+      }
       #map {
-        float: right;
-        margin-top: 75px;
-        height: 92%;
-        width: 20%;
+        transform: none;
+        z-index: 100;;
+        position: -webkit-fixed;
+        position: fixed;
+        left: 60px;
+        top: 95px;
+        right: 35px;
+        height: 82%;
+        width: 40%;
       }
       .body {
-        margin-left: 20px;
+        margin-left: 35px;
         float: left;
-        width: 40%;
+        width: 50%;
         font-size: 14pt;
-        margin-top: 75px;
+        margin-top: 95px;
+        padding-bottom: 40px;
       }
       .list-group-item{
         padding:20px;
@@ -56,7 +69,7 @@
         /* color: #FFFFFF; */
         background-color: #5DAF7F;
       }
-      .bg-custom-2 {
+      .bg-custom {
         background-image: linear-gradient(15deg, #55AA79 0%, #BFD3C1 100%);
       }
       /* Optional: Makes the sample page fill the window. */
@@ -71,76 +84,75 @@
 
   <body>
 
-    <nav class="navbar navbar-expand-md navbar-dark navbar-custom navbar-fixed-top bg-custom-2">
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar navbar-expand-md navbar-dark navbar-custom navbar-fixed-top bg-custom">
 
       <div class="mr-auto order-0">
-        <a class="navbar-brand mr-auto header" href="/">NaviGoat</a>
-          <!-- <form action="/" method="get">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-          </form> -->
+        <a class="navbar-brand mr-auto header display-1" href="/">NaviGoat</a>
       </div>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
           <input type="text" class="form-control" name="search" placeholder="Where to next?">
           <input type="text" class="form-control" name="location" placeholder="Near what location?">
         </div>
-        <input class='hidden' id="latitude" name="latitude">
-        <input class='hidden' id="longitude" name="longitude">
+        <input class='hidden' id="geo_lat" name="geo_lat">
+        <input class='hidden' id="geo_lng" name="geo_lng">
 
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
-      <!-- <form action="/search" method="get">
-        <input class="textboxid" type="text" name="search" placeholder="Where to next?">
-        <input class="textboxid" type="text" name="location" placeholder="Near what location?"> -->
-        <!-- <input class='hidden' id="latitude" name="latitude">
-        <input class='hidden' id="longitude" name="longitude"> -->
-
-        <!-- <button id="button" type="submit">Search</button>
-      </form> -->
     </nav>
 
-    <!-- <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">
-            <form class="navbar-form navbar-left" role="search">
-              <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search">
-              </div>
-              <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-            <p class="navbar-text">Signed in as Mark Otto</p>
-          </a>
-        </div>
-      </div>
-    </nav> -->
-
+    <!-- LISTING THE BUSINESSES -->
     <div class = "body">
       <div class="accordion" id="businesses">
-        {% for b in req['businesses'] %}
-          <div class="card">
-            <div class="card-header" id="ID-{{b['id']}}" role="button" data-toggle="collapse" data-target="#{{b['id']}}" aria-expanded="false" aria-controls="{{b['id']}}">
-              <h2 class="mb-0">
-                <h4 class="collapsed">
-                  {{loop.index}}. {{b['name']}}
-                </h4>
-              </h2>
-            </div>
+        <!-- if no businesses found -->
+        {% if req['total'] == 0 %}
+        <div class="card" style="background-color: #FCFBF7;">
+          <div class="card-header" data-toggle="collapse" aria-expanded="false">
+            <h2 class="mb-0">
+              <h4 class="collapsed">
+                No results found that match your search. Try again?
+              </h4>
+            </h2>
+          </div>
+        </div>
+        {% else %}
+          {% for b in req['businesses'] %}
+            <div class="card" style="background-color: #FCFBF7;">
+              <div class="card-header" id="ID-{{b['id']}}" role="button" data-toggle="collapse" data-target="#ARIA-{{b['id']}}" aria-expanded="false" aria-controls="ARIA-{{b['id']}}">
+                <h2 class="mt-auto">
+                  <h4 class="collapsed">
+                    <img src="{{b['image_url']}}" style="width:75px;height:75px;margin-left:10px;">
+                    <span style="margin-left:10px;">{{loop.index}}. {{b['name']}}</span>
+                    <span style="float:right;float:top;margin-right:10px;">
+                      {{b['price']}}
+                    </span>
+                    <span style="font-size:10pt;color:#685D63;">&emsp;/&emsp;{{b['categories'][0]['title']}}</span>
+                  </h4>
+                </h2>
+              </div>
 
-            <div id="{{b['id']}}" class="collapse" aria-labelledby="ID-{{b['id']}}" data-parent="#businesses">
-              <div class="card-body">
-                {{b['name']}}
+              <div id="ARIA-{{b['id']}}" class="collapse" aria-labelledby="ID-{{b['id']}}" data-parent="#businesses">
+                <div class="card-body">
+                  <h3>{{b['name']}}</h3>
+                  <h4>Rating: {{b['rating']}} stars</h4>
+                  {% for a in b['location']['display_address'] %}
+                    {{a}}
+                  {% endfor %}
+                  <h5>{{b['phone']}}</h5>
+                </div>
               </div>
             </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        {% endif %}
       </div>
+    </div>
 
+    <!-- MAP -->
+    <!-- <div id="map_pos"> -->
+        <div id="map" style="position:fixed;"></div>
+    <!-- </div> -->
 
-    <div id="map"></div>
-    <!-- <script src="/static/map.js?"></script> -->
     <script>
     // Requires Geolocation to be enabled by the user
     var map, user_infoWindow;
@@ -152,76 +164,94 @@
 
       user_infoWindow = new google.maps.InfoWindow({content:"You are here!"});
 
+      var user_pos = {}
+
       // Try HTML5 geolocation.
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-          // to pass to the python file
-          document.getElementById("latitude").value = position.coords.latitude;
-          document.getElementById("longitude").value = position.coords.longitude;
 
-          var user_pos = {
+          // to pass to the python file
+          document.getElementById("geo_lat").value = position.coords.latitude;
+          document.getElementById("geo_lng").value = position.coords.longitude;
+
+          user_pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           };
 
+
           // Plotting the USER marker
-          var user_marker=new google.maps.Marker({position:user_pos,map:map,title:"You are here!"});
+          var goat = "../static/goat-marker.png";
+          var user_marker=new google.maps.Marker({position:user_pos,map:map,title:"You are here!",icon:goat});
+
+          user_infoWindow.open(map, user_marker);
+
           user_marker.addListener("click", function() {
             user_infoWindow.open(map, user_marker);
           });
 
-          // Plotting Recommended markers
-          // console.log({{req|tojson}}['businesses']);
-          var b_pos, b_name, b_inforWindow;
-          var new_marker;
-          var num_str, num_int = 1;
-          var i;
-          for (i in {{req|tojson}}['businesses']){
-            // console.log({{req|tojson}}['businesses'][b]);
-            business = {{req|tojson}}['businesses'][i];
-            b_infoWindow = new google.maps.InfoWindow({content:business['name']});
-
-            b_pos = {
-              lat: business.coordinates.latitude,
-              lng: business.coordinates.longitude
-            };
-            num_str = num_int.toString();
-            new_marker=new google.maps.Marker({position:b_pos,label:num_str,map:map,title:business['name']});
-            // new_marker.addListener("click", function() {
-            //   b_infoWindow.open(map, new_marker);
-            // });
-            num_int++;
-
-          }
-
-          // center around the last business
-          // in case the location is not the user
-            map.setCenter(b_pos);
-
+          display_map();
         }, function() {
-          handleLocationError(true, infoWindow, map.getCenter());
-        });
-      }
-
+          // if no geolocation, use New York City
+          display_map();
+        }); // end of ERROR func
+      } // end of if
       else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
+        display_map();
       }
-    }
+    } // end of initMap
 
-    function handleLocationError(browserHasGeolocation, infoWindow, user_pos) {
-      infoWindow.setPosition(user_pos);
-      infoWindow.setContent(browserHasGeolocation ?
-                            'Error: The Geolocation service failed.' :
-                            'Error: Your browser doesn\'t support geolocation.');
-      infoWindow.open(map);
-    }
+    function display_map() {
+      // Plotting Recommended markers
+      var b_pos, b_name, b_inforWindow;
+      var new_marker;
+      var num_str, num_int = 1;
+      var i;
 
+      if ({{req|tojson}}['total'] != 0){  // there must be at least one item in the list
+        for (i in {{req|tojson}}['businesses']){
+          // console.log({{req|tojson}}['businesses'][b]);
+          business = {{req|tojson}}['businesses'][i];
+          b_infoWindow = new google.maps.InfoWindow({content:business['name']});
+
+          b_pos = {
+            lat: business.coordinates.latitude,
+            lng: business.coordinates.longitude
+          };
+          num_str = num_int.toString();
+          new_marker=new google.maps.Marker({position:b_pos,label:num_str,map:map,title:business['name']});
+          // new_marker.addListener("click", function() {
+          //   b_infoWindow.open(map, new_marker);
+          // });
+          num_int++;
+
+          // center around the first business
+          // in case the location is not the user
+          var center_pos = {
+            lat: {{req|tojson}}['businesses'][0].coordinates.latitude,
+            lng: {{req|tojson}}['businesses'][0].coordinates.longitude
+          };
+
+          map.setCenter(center_pos);
+
+        }
+      }
+
+    } // end of display_map()
+
+    // // no need to handle location error if given New York
+    // // keeping it here in case
+    // function handleLocationError(browserHasGeolocation, infoWindow, user_pos) {
+    //   infoWindow.setPosition(user_pos);
+    //   infoWindow.setContent(browserHasGeolocation ?
+    //                         'Error: The Geolocation service failed.' :
+    //                         'Error: Your browser doesn\'t support geolocation.');
+    //   infoWindow.open(map);
+    // }
 
     </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCP4kVKIvYf6_oJXKSUa-EAymNXqiFKh54&callback=initMap">
-    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCP4kVKIvYf6_oJXKSUa-EAymNXqiFKh54&callback=initMap"></script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

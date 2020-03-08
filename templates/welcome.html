@@ -26,8 +26,10 @@
       }
       .center {
         margin-top: 15%;
+        width: 60%;
+        margin-left:20%;
       }
-      .bg-custom-2 {
+      .bg-custom {
         background-image: linear-gradient(15deg, #55AA79 0%, #BFD3C1 100%);
       }
       .hidden {
@@ -43,10 +45,10 @@
   <body>
     <title>NaviGoat</title>
 
-    <nav class="navbar navbar-expand-md navbar-dark navbar-custom navbar-fixed-top bg-custom-2">
+    <nav class="navbar navbar-expand-md navbar-dark navbar-custom navbar-fixed-top bg-custom">
 
       <div class="mr-auto order-0">
-        <a class="navbar-brand mr-auto" href="/">NaviGoat</a>
+        <a class="navbar-brand mr-auto display-1" href="/">NaviGoat</a>
           <form action="/" method="get">
             <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
                 <span class="navbar-toggler-icon"></span>
@@ -60,15 +62,24 @@
     </nav>
 
     <div class="center">
-      <h1 class="display-1"><center>NaviGoat</center></h1>
-
-      <form action="/search" method="get"><center>
-        <input class="textboxid" type="text" name="search" placeholder="Where do you want to go?">
-        <input class="textboxid" type="text" name="location" placeholder="Near what location?">
-        <input class='hidden' id="latitude" name="latitude">
-        <input class='hidden' id="longitude" name="longitude">
-        <button id="button" type="submit">Search</button>
-      </center></form>
+      <div class="card" style="background-color: #FCFBF7;">
+        <div class="card-header" data-toggle="collapse" aria-expanded="false">
+          <h2 class="mt-auto">
+            <h1 class="display-1">
+              <center>
+                NaviGoat<img src="../static/goat-marker.png" style="margin-left:10px;">
+              </center>
+            </h1>
+            <form action="/search" method="get"><center>
+              <input class="textboxid" type="text" name="search" placeholder="Where do you want to go?">
+              <input class="textboxid" type="text" name="location" placeholder="Near what location?">
+              <input class='hidden' id="geo_lat" name="geo_lat">
+              <input class='hidden' id="geo_lng" name="geo_lng">
+              <button id="button" type="submit">Search</button>
+            </center></form>
+          </h2>
+        </div>
+      </div>
 
     </div>
 
@@ -77,23 +88,23 @@
       function getLocation() {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position){
-            document.getElementById("latitude").value = position.coords.latitude;
-            document.getElementById("longitude").value = position.coords.longitude;
+            document.getElementById("geo_lat").value = position.coords.latitude;
+            document.getElementById("geo_lng").value = position.coords.longitude;
           });
         }
-        else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
+        // else {
+        //   // Browser doesn't support Geolocation
+        //   handleLocationError(false, infoWindow, map.getCenter());
+        // }
       }
 
-      function handleLocationError(browserHasGeolocation, infoWindow, user_pos) {
-        infoWindow.setPosition(user_pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-      }
+      // function handleLocationError(browserHasGeolocation, infoWindow, user_pos) {
+      //   infoWindow.setPosition(user_pos);
+      //   infoWindow.setContent(browserHasGeolocation ?
+      //                         'Error: The Geolocation service failed.' :
+      //                         'Error: Your browser doesn\'t support geolocation.');
+      //   infoWindow.open(map);
+      // }
 
       getLocation();
 

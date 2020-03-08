@@ -28,19 +28,28 @@ def search():
         # If location not given, default to New York City
         location = 'New York City'
 
-    # Use geolocation instead
-        if (request.args['latitude'] != '' and request.args['longitude'] != ''):
-            lat = request.args['latitude']
-            long = request.args['longitude']
+        # Try geolocation
+        if (request.args['geo_lat'] != '' or request.args['geo_lng'] != ''):
+            geo_lat = request.args['geo_lat']
+            geo_lng = request.args['geo_lng']
             params = {'term': search_term,
-                     'latitude': lat,
-                     'longitude': long,
+                     'latitude': geo_lat,
+                     'longitude': geo_lng,
+                     'radius': 10000,
                      'rating': 5}
             location = "you"
+        else:
+            # if not, search near 'New York City'
+            params = {'term': search_term,
+                     'location': location,
+                     'radius': 10000,
+                     'rating': 5}
+
     # Use given location
     else:
         params = {'term': search_term,
                  'location': location,
+                 'radius': 10000,
                  'rating': 5}
 
 
@@ -54,17 +63,14 @@ def search():
     # turns req txt into a dictionary for easy access
     req_dict = json.loads(text)
 
-    names = []
-    businesses = req_dict['businesses']
-    for b in businesses:
-        names.append(b['name'])
+    # # use if not centered around user
+    # region = {'latitude': req_dict['region']['center']['latitude'],
+    #          'longitude': req_dict['region']['center']['longitude']}
+
 
     # return str(text)
     return render_template('search.html', search = search_term, loc=location, req = req_dict)
 
-# @app.route('/location')
-# def location():
-#
 
 
 if __name__ == '__main__':
