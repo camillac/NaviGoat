@@ -34,12 +34,14 @@ def search():
             long = request.args['longitude']
             params = {'term': search_term,
                      'latitude': lat,
-                     'longitude': long}
+                     'longitude': long,
+                     'rating': 5}
             location = "you"
     # Use given location
     else:
         params = {'term': search_term,
-                 'location': location}
+                 'location': location,
+                 'rating': 5}
 
 
     url = 'https://api.yelp.com/v3/businesses/search'
