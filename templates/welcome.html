@@ -13,7 +13,11 @@
       href="../static/goat.png">
 
     <style>
-      #textboxid {
+      body {
+        background-image: url("../static/restaurant_icons/restaurant_icons.png");
+        background-color: #cccccc;
+      }
+      .textboxid {
         width:300px;
         font-size:14pt;
       }
@@ -44,9 +48,9 @@
       <div class="mr-auto order-0">
         <a class="navbar-brand mr-auto" href="/">NaviGoat</a>
           <form action="/" method="get">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
                 <span class="navbar-toggler-icon"></span>
-            </button>
+            </button> -->
           </form>
       </div>
       <!-- <form action="/search" method="get">
@@ -56,10 +60,12 @@
     </nav>
 
     <div class="center">
-      <h1><center>NaviGoat</center></h1>
+      <h1 class="display-1"><center>NaviGoat</center></h1>
 
       <form action="/search" method="get"><center>
-        <input id="textboxid" type="text" name="search" placeholder="Where do you want to go?">
+        <input class="textboxid" type="text" name="search" placeholder="Where do you want to go?">
+        <input class="textboxid" type="text" name="location" placeholder="Near what location?">
+
         <button id="button" type="submit">Search</button>
         <input class='hidden' id="latitude" name="latitude">
         <input class='hidden' id="longitude" name="longitude">

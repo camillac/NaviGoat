@@ -3,7 +3,7 @@
 
 <html>
   <head>
-    <title>Searching for {{search}} - NaviGoat</title>
+    <title>Searching for {{search}} near {{loc}} - NaviGoat</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -19,7 +19,11 @@
 
     <!-- CSS -->
     <style>
-      #textboxid {
+      body {
+        background-image: url("../static/restaurant_icons/restaurant_icons.png");
+        background-color: #cccccc;
+      }
+      .textboxid {
         width:200px;
         font-size:14pt;
       }
@@ -46,7 +50,7 @@
         width: 100%;
       }
       .navbar-custom {
-        color: #FFFFFF;
+        /* color: #FFFFFF; */
         background-color: #5DAF7F;
       }
       .bg-custom-2 {
@@ -75,8 +79,10 @@
           </form> -->
       </div>
       <form action="/search" method="get">
-        <input class="mtauto" id="textboxid" type="text" name="search" placeholder="Search for locations!">
-        <button class="mtauto" id="button" type="submit">Search</button>
+        <input class="textboxid" type="text" name="search" placeholder="Where to next?">
+        <input class="textboxid" type="text" name="location" placeholder="Near what location?">
+
+        <button id="button" type="submit">Search</button>
       </form>
     </nav>
 
@@ -98,7 +104,7 @@
     <div class = "body">
 
       <div class="row">
-        <div class="col-4">
+        <div class="col-8">
           <div class="list-group" id="list-tab" role="tablist">
             {% for b in req['businesses'] %}
               <a class="list-group-item list-group-item-action" id="{{b['id']}}-list" data-toggle="list" href="#{{b['id']}}" role="tab"><strong>{{loop.index}}. {{b['name']}}</strong></a>
@@ -106,7 +112,7 @@
           </div>
         </div>
 
-        <div class="col-8">
+        <div class="col-4">
           <div class="tab-content" id="nav-tabContent">
             {% for b in req['businesses'] %}
               <!-- <li>{{b['name']}}</li> -->
@@ -129,7 +135,7 @@
     function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: -34.397, lng: 150.644},
-        zoom: 12
+        zoom: 11
       });
 
       user_infoWindow = new google.maps.InfoWindow({content:"You are here!"});
@@ -172,8 +178,10 @@
 
           }
 
+          // center around the last business
+          // in case the location is not the user
+            map.setCenter(b_pos);
 
-          map.setCenter(user_pos);
         }, function() {
           handleLocationError(true, infoWindow, map.getCenter());
         });

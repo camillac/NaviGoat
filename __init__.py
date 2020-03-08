@@ -20,16 +20,26 @@ def main():
 @app.route('/search')
 def search():
     search_term = request.args['search']
-    if (request.args['latitude'] != '' or request.args['longitude'] != ''):
-        lat = request.args['latitude']
-        long = request.args['longitude']
-        params = {'term': search_term,
-                 'latitude': lat,
-                 'longitude': long}
+    location = request.args['location']
+
+    params = {}
+
+    if (location == ''):
+        # If location not given, default to New York City
+        location = 'New York City'
+
+    # Use geolocation instead
+        if (request.args['latitude'] != '' and request.args['longitude'] != ''):
+            lat = request.args['latitude']
+            long = request.args['longitude']
+            params = {'term': search_term,
+                     'latitude': lat,
+                     'longitude': long}
+            location = "you"
+    # Use given location
     else:
-        # If HTML Geolocation fails, default to New York City
         params = {'term': search_term,
-                 'location': 'New York City'}
+                 'location': location}
 
 
     url = 'https://api.yelp.com/v3/businesses/search'
@@ -48,7 +58,7 @@ def search():
         names.append(b['name'])
 
     # return str(text)
-    return render_template('search.html', search = search_term, req = req_dict)
+    return render_template('search.html', search = search_term, loc=location, req = req_dict)
 
 # @app.route('/location')
 # def location():
