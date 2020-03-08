@@ -11,7 +11,7 @@
     <link rel="icon"
       type="image/png"
       href="../static/goat.png">
-      
+
     <style>
       #textboxid {
         width:300px;
@@ -19,6 +19,12 @@
       }
       #button {
         font-size:14pt;
+      }
+      .center {
+        margin-top: 15%;
+      }
+      .bg-custom-2 {
+        background-image: linear-gradient(15deg, #55AA79 0%, #BFD3C1 100%);
       }
       .hidden {
         display: none;
@@ -33,7 +39,7 @@
   <body>
     <title>NaviGoat</title>
 
-    <nav class="navbar navbar-expand-md navbar-dark navbar-custom navbar-fixed">
+    <nav class="navbar navbar-expand-md navbar-dark navbar-custom navbar-fixed-top bg-custom-2">
 
       <div class="mr-auto order-0">
         <a class="navbar-brand mr-auto" href="/">NaviGoat</a>
@@ -49,14 +55,17 @@
       </form> -->
     </nav>
 
-    <h1><center>NaviGoat</center></h1>
+    <div class="center">
+      <h1><center>NaviGoat</center></h1>
 
-    <form action="/search" method="get"><center>
-      <input id="textboxid" type="text" name="search" placeholder="Where do you want to go?">
-      <button id="button" type="submit">Search</button>
-      <input class='hidden' id="latitude" name="latitude">
-      <input class='hidden' id="longitude" name="longitude">
-    </center></form>
+      <form action="/search" method="get"><center>
+        <input id="textboxid" type="text" name="search" placeholder="Where do you want to go?">
+        <button id="button" type="submit">Search</button>
+        <input class='hidden' id="latitude" name="latitude">
+        <input class='hidden' id="longitude" name="longitude">
+      </center></form>
+
+    </div>
 
     <script>
       var x = document.getElementById("demo");
