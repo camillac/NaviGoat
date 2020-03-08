@@ -200,8 +200,6 @@
           var goat = "../static/goat-marker.png";
           var user_marker=new google.maps.Marker({position:user_pos,map:map,title:"You are here!",icon:goat});
 
-          user_infoWindow.open(map, user_marker);
-
           user_marker.addListener("click", function() {
             user_infoWindow.open(map, user_marker);
           });
