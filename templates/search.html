@@ -130,7 +130,7 @@
                 <h2 class="mt-auto">
                   <h4 class="collapsed">
                     {% if b['image_url'] == '' %}
-                      <img src="../static/no-image-goat.png" style="width:90px;height:90px;margin-left:10px;">
+                      <img src="{{url_for('static',filename='no_image_goat.png')}}" style="width:90px;height:90px;margin-left:10px;">
                     {% else %}
                       <img src="{{b['image_url']}}" style="width:90px;height:90px;margin-left:10px;">
                     {% endif %}
