@@ -18,15 +18,15 @@
         background-color: #cccccc;
       }
       .textboxid {
-        width:300px;
-        font-size:14pt;
+        width:200px;
+        font-size:12pt;
       }
       #button {
         font-size:14pt;
       }
       .center {
-        margin-top: 15%;
-        width: 60%;
+        margin-top: 13%;
+        width: 62%;
         margin-left:20%;
       }
       .bg-custom {
@@ -73,8 +73,8 @@
             <form class="form-inline text-center" style="margin-bottom:70px" action="/search" method="get"><center>
               <!-- <input class="textboxid" type="text" name="search" placeholder="Where do you want to go?">
               <input class="textboxid" type="text" name="location" placeholder="Near what location?"> -->
-              <input type="text" class="form-control" style="width:300px;" name="search" placeholder="Find restaurants, museums, etc.">
-              <input type="text" class="form-control" style="width:300px;" name="location" placeholder="Near what location?">
+              <input type="text" class="form-control textboxid" style="width:300px;" name="search" placeholder="Find restaurants, museums, etc.">
+              <input type="text" class="form-control textboxid" style="width:300px;" name="location" placeholder="Near what location?">
               <select class="form-control" id="sort_by" name="sort_by">
                 <option value="best_match" selected hidden>Search by...</option>
                 <option value="best_match">Best Match</option>
@@ -91,6 +91,9 @@
       </div>
 
     </div>
+
+    <img src="../static/goat.png" style="margin-right:10px;float:right;float:bottom;width:300px;height:320px">
+
 
     <script>
       var x = document.getElementById("demo");
