@@ -1,13 +1,10 @@
 # NaviGoat
-### Are you looking for new places to go? Follow the goat!
-NaviGoat is a website for all your search needs. You can look for places near you, or even somewhere else!
+##### By Camilla Cheng, Designed for the Capital One SES
 
-Search by ratings, distance, and even the number of reviews!
+## Are you looking for new places to go? Follow the goat!
+NaviGoat is a website for all your navigation needs. Look for places near you, or even somewhere else!
 
-
-#### Created by Camilla Cheng
-##### Designed for the Capital One SES
-
+Compare prices of each location! Search by ratings, distance, and even the number of reviews!
 
 ## Sources
 - [Yelp Fusion API](https://www.yelp.com/developers/documentation/v3/get_started)
