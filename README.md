@@ -6,7 +6,7 @@ NaviGoat is a website for all your navigation needs. Look for places near you, o
 
 Compare prices of each location! Search by ratings, distance, and even the number of reviews!
 
-Click here to GO[at]! ---> www.navigoat.club
+Click here to check it out! ---> www.navigoat.club
 
 ## Sources
 - [Yelp Fusion API](https://www.yelp.com/developers/documentation/v3/get_started)
