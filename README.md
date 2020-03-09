@@ -2,7 +2,7 @@
 ##### By Camilla Cheng, Designed for the Capital One SES
 
 ## Are you looking for new places to go? Follow the goat!
-NaviGoat is a website for all your navigation needs. Look for places near you, or even somewhere else!
+NaviGoat is a website for all your navigation needs. Look for places near you, your friend's house, or anywhere else!
 
 Compare prices of each location! Search by ratings, distance, and even the number of reviews!
 
