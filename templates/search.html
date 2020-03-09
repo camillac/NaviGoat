@@ -145,11 +145,12 @@
 
               <div id="ARIA-{{b['id']}}" class="collapse" aria-labelledby="ID-{{b['id']}}" data-parent="#businesses">
                 <div class="card-body">
-                  <h3><a href="{{b['url']}}">{{b['name']}}</a>
+                  <h3><a href="{{b['url']}}" target="_blank">{{b['name']}}</a>
                     <span style="font-size:11pt;color:#685D63;">&emsp;{{(b['distance']/1000)|round(2,'floor')}} km</span>
                   </h3>
 
-                  <h4>Rating: {{b['rating']}} stars
+                  <h4>Rating:
+                    <img src="../static/stars/{{b['rating']}}.png" style="width:90px;height:20px;">
                     <span style="font-size:11pt;color:#685D63;">&emsp;({{b['review_count']}} reviews)</span>
                   </h4>
                   {% for a in b['location']['display_address'] %}
